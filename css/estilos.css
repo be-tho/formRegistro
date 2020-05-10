@@ -31,12 +31,6 @@
     box-sizing: border-box;
     color: #333333;
 }
-body{
-  background-color: #00b7ff;
-  background-image: url("../img/fondo.svg");
-  background-attachment: fixed;
-  background-size: cover;
-}
 body, html {
 	font-family: Poppins-Regular, sans-serif;
 }
@@ -121,6 +115,7 @@ input[type ="button"]{
   color: #2d3748;
 }
 .dark {
+  background: #004f28;
   background-image: url("../img/fondo-dark.svg");
   background-attachment: fixed;
   background-size: cover;
