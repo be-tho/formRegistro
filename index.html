@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
     <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-    <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="css/bootstrap.css">
-    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body class="body light">
     <aside id="app" class="container p-md-5 pt-sm-5 pb-sm-5 col-12 col-md-8 col-lg-6 ">
@@ -19,10 +18,12 @@
             @dato-registro ="registro = $event" 
             @dato-correo = "oncorreo = $event"
             @dato-password ="onpassword = $event" 
+            @dato-consolas = "onconsolas = $event"
             v-if="verForm">
         </register>
         <mostrar-datos
             :registro = "registro"
+            :onconsolas = "onconsolas"
             @ver-login = "login = $event"
             v-else >
         </mostrar-datos>
@@ -48,6 +49,7 @@
                 onpassword: '',
                 verForm: true,
                 login: '',
+                onconsolas: [],
             }
         }
     });

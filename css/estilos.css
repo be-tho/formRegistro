@@ -129,6 +129,9 @@ input[type ="button"]{
   background: #1c1b1b;
   color: #ffffff;
 }
+.dark h3{
+  color: white;
+}
 /*FIN TOGGLER*/
 .error{
   background: #333333 !important;

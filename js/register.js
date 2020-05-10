@@ -12,6 +12,9 @@ Vue.component ('register',{
             juego: false,
             registro: [],
             verForm: false,
+            inputName: '',
+            consolas: ['nes', 'game boy', 'game boy advance', 'nintendo 64', 'game boy color', 'gamecube', 'wii', 'play station 1', 'xbox',  'play station 4', 'nintendo switch',],
+            onconsolas: [],
         }
     },
     methods: {
@@ -52,7 +55,10 @@ Vue.component ('register',{
                 this.$emit('dato-correo', this.correo);
                 this.$emit('dato-password', this.password);
                 this.$emit('dato-ver', this.verForm);
-                }, 2000);
+                this.$emit('dato-consolas', this.onconsolas);
+                document.body.classList.remove('dark');
+                document.body.classList.add('light');
+            }, 2000);
             }
         },
         darktheme() {
@@ -75,16 +81,20 @@ Vue.component ('register',{
             this.confipassword = "";
             this.errores = [];
             this.juegos = [];
+            consolaElegida = [];
         },
+        filtro(){
+            return this.consolas.filter( consolas =>  consolas.toLowerCase().includes( this.inputName.toLowerCase() ));
+        }
     },
     template: /*html*/`
     <div class="row cont-principal col mx-auto pb-4 app align-items-center">
-        <h4 class="col-md-9 text-center my-3">!Qué bueno verte aquí!</h4>
+        <h2 class="col-md-9 text-center my-3">!Qué bueno verte aquí!</h2>
         <div class="dark-mode col-md-3 text-center justify-content-center">
             <input type="checkbox" name="check" id="check" />
             <label for="check" class="toggle" @click="darktheme"></label>
         </div>
-        <p class="col-12">Configuremos su cuenta en solo un par de pasos</p>
+        <p class="col-12 mb-3">Configuremos su cuenta en solo un par de pasos</p>
         <div class="col-sm-12 mx-auto"> 
             <form action="" method="post" enctype="multipart/form-data" @submit="validregister">
                 <div>
@@ -103,16 +113,18 @@ Vue.component ('register',{
                     <label for="mail">Correo</label>
                     <input type="email" class="form-control" id="mail" name="mail" placeholder="Correo" v-model="correo">
                 </div>                   
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Escriba su contraseña" v-model="password">
-                </div>
-                <div class="form-group">
-                    <label for="confirmar">Confirmar contraseña</label>
-                    <input type="password" class="form-control" id="confirmar" name="confirmar" placeholder="Confirmar contraseña" v-model="confipassword">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="password">Contraseña</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Escriba su contraseña" v-model="password">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="confirmar">Confirmar</label>
+                        <input type="password" class="form-control" id="confirmar" name="confirmar" placeholder="Confirmar contraseña" v-model="confipassword">
+                    </div>
                 </div>
                 <div class="form-group mx-auto text-center">
-                    <h4>¿Que juego te gusta más?</h4>
+                    <h3>¿Que juego te gusta más?</h3>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="fram1" value="Call of Duty" v-model="juegos">
                         <label class="form-check-label" for="fram1">Call of Duty</label>
@@ -128,6 +140,17 @@ Vue.component ('register',{
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="fram4" value="Diablo III" v-model="juegos">
                         <label class="form-check-label" for="fram4">Diablo III</label>
+                    </div>
+                </div>
+                <div class="form-group mx-auto text-center">
+                    <div class="form-group">
+                        <h3 class="col">Gran premio</h3>
+                        <label for="search" class="col text-left">Selecciona tu consola : (No es Obligatorio)</label>
+                        <input type="text" class="form-control" placeholder="Buscar por nombre de consola" v-model.trim="inputName">
+                    </div>
+                    <div class="form-check form-check-inline" v-for="(dato, index) in filtro()">
+                        <input class="form-check-input" type="checkbox" :id="index" :value="dato" v-model="onconsolas">
+                        <label class="form-check-label" :for="index">{{dato}}</label>
                     </div>
                 </div>
                 <div :class="{error: errores.length > 0}" v-if="listError">
